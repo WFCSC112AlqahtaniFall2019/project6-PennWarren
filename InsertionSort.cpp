@@ -1,7 +1,8 @@
 #include <cassert>
 #include <iostream>
+#include <vector>
 #include <ctime>
-#include "LinkedList.h"
+#include "BinaryInsertionSort.h"
 using namespace std;
 
 int main() {
@@ -9,25 +10,25 @@ int main() {
     int seed, length;
     cin >> seed;
     srand(seed);
-    LinkedList Ben;
 
-    for(int i = 2; i <= 10002; i = i+100){
-        int randomValue;
+
+    for(int i = 0; i <= 5001; i += 100){
         length = i;
+        vector<int> v(length);
 
-        //generate linked list of unsorted values
-        for (int j = 0; j < length-1; j++) {
-            randomValue = rand() % 100;
-            Ben.append(randomValue);
+        // generate vector of random integers
+        for (int & i : v) {
+            i = rand() % 100;
         }
 
-        //linked list — InsertionSort and clock
-        clock_t start_InsertionSort = clock();
-        Ben.InsertionSort();
-        clock_t end_InsertionSort = clock();
-        double elapsed_InsertionSort = double(end_InsertionSort - start_InsertionSort) / CLOCKS_PER_SEC;
+         // vector — binary insertion sort and clock
+        clock_t start_BinaryInsertionSort = clock();
+        insertionSort(v, v.size());
+        clock_t end_BinaryInsertionSort = clock();
+        double elapsed_BinaryInsertionSort = double(end_BinaryInsertionSort - start_BinaryInsertionSort) / CLOCKS_PER_SEC;
 
-        //gives linked list size and time for execution
-        cout << i-2 << "\t" << elapsed_InsertionSort << endl;
+        //gives vector size and time for execution
+        cout << i << "\t" << elapsed_BinaryInsertionSort << endl;
     }
 }
+
